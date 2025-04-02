@@ -48,34 +48,31 @@ const Login = () => {
   };
 
   useEffect(() => {
-  if (registerIsSuccess && registerData) {
-    toast.success(registerData.message || "Signup successful.");
-  }
-  if (registerError) {
-    // Check if registerData exists before accessing its message property
-    toast.error(registerData?.message || "Signup failed.");
-  }
-  if (loginIsSuccess && loginData) {
-    // Check if loginData.data exists before accessing its message property
-    toast.success(loginData.data?.message || "Login successful.");
-    navigate("/")
-  }
-  if (loginError) {
-    // Check if loginData.data exists before accessing its message property
-    toast.error(loginData?.data?.message || "Login failed.");
-  }
-}, [
-  loginIsLoading,
-  registerIsLoading,
-  loginData,
-  registerData,
-  loginError,
-  registerError,
-]);
+    if (registerIsSuccess && registerData) {
+      toast.success(registerData.message || "Signup successful.");
+    }
+    if (registerError) {
+      toast.error(registerError.data.message || "Signup failed.");
+    }
+    if (loginIsSuccess && loginData) {
+      toast.success(loginData.message || "Login successful.");
+      navigate("/")
+    }
+    if (loginError) {
+      toast.error(loginError.data.message || "Login failed.");
+    }
+  }, [
+    loginIsLoading,
+    registerIsLoading,
+    loginData,
+    registerData,
+    loginError,
+    registerError,
+  ]);
 
   return (
     <div className="flex items-center justify-center w-full mt-16">
-      <Tabs defaultValue="account" className="w-[400px]">
+      <Tabs defaultValue="login" className="w-[400px]">
         <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="signup">Signup</TabsTrigger>
           <TabsTrigger value="login">Login</TabsTrigger>
