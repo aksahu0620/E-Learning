@@ -8,14 +8,14 @@ const courseSchema = new mongoose.Schema({
     subTitle: {
         type: String,
     },
-    descriotion: {
+    description: {
         type: String,
     },
     category: {
         type: String,
         required: true
     },
-    courseLavel: {
+    courseLevel: {
         type: String,
         enum: ["Beginner", "Medium", "Advance"]
     },
