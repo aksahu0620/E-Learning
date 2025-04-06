@@ -31,13 +31,13 @@ const LectureTab = () => {
     const { data: lectureData } = useGetLectureByIdQuery(lectureId);
     const lecture = lectureData?.lecture;
 
-    useEffect(() =>{
-        if(lecture){
+    useEffect(() => {
+        if (lecture) {
             setLectureTitle(lecture.lectureTitle);
-            // setIsFree(lecture.isPreviewFree);
+            setIsFree(lecture.isPreviewFree);
             setUploadVideoInfo(lecture.videoInfo);
         }
-    },[lecture])
+    }, [lecture])
 
     const fileChangeHandler = async (e) => {
         const file = e.target.files[0];
