@@ -24,11 +24,11 @@ const CourseTab = () => {
     const params = useParams();
     const courseId = params.courseId;
 
-    const { data: courseByIdData, isLoading: courseByIdLoading } = useGetCourseByIdQuery(courseId);
+    const { data: courseByIdData, isLoading: courseByIdLoading } = useGetCourseByIdQuery(courseId, { refetchOnMountOrArgChange: true });
 
-    const course = courseByIdData?.course;
     useEffect(() => {
-        if (course) {
+        if (courseByIdData?.course) {
+            const course = courseByIdData?.course;
             setInput({
                 courseTitle: course.courseTitle,
                 subTitle: course.subTitle,
@@ -39,7 +39,7 @@ const CourseTab = () => {
                 courseThumbnail: "",
             })
         }
-    }, [course])
+    }, [courseByIdData])
 
 
     const [previewThumbnail, setPreviewThumbnail] = useState("");
@@ -93,6 +93,8 @@ const CourseTab = () => {
             toast.error(error.data.message || "Failed to update course");
         }
     }, [isSuccess, error]);
+
+    if (courseByIdLoading) return <Loader2 className='h-4 w-4 animate-spin' />
 
     const isPublished = true;
     return (
