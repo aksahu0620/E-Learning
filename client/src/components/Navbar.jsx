@@ -1,5 +1,7 @@
 import { Menu, School } from "lucide-react";
 import React, { useEffect } from "react";
+import ModeToggle from "@/components/ModeToggle"
+
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -9,9 +11,10 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
+
 import { Button } from "./ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import DarkMode from "@/DarkMode";
+
 import {
     Sheet,
     SheetClose,
@@ -58,7 +61,7 @@ const Navbar = () => {
                 <div className="flex items-center gap-8">
                     {user ? (
                         <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
+                            <DropdownMenuTrigger>
                                 <Avatar>
                                     <AvatarImage
                                         src={user?.photoUrl || "https://github.com/shadcn.png"}
@@ -90,6 +93,8 @@ const Navbar = () => {
                                 )}
                             </DropdownMenuContent>
                         </DropdownMenu>
+
+
                     ) : (
                         <div className="flex items-center gap-2">
                             <Button variant="outline" onClick={() => navigate("/login")}>
@@ -98,15 +103,16 @@ const Navbar = () => {
                             <Button onClick={() => navigate("/login")}>Signup</Button>
                         </div>
                     )}
-                    <DarkMode />
+                    {/* <DarkMode /> */}
+                    <ModeToggle />
                 </div>
-            </div>
+            </div >
             {/* Mobile device  */}
-            <div className="flex md:hidden items-center justify-between px-4 h-full">
+            <div className="flex md:hidden items-center justify-between px-4 h-full" >
                 <h1 className="font-extrabold text-2xl">E-learning</h1>
                 <MobileNavbar user={user} />
-            </div>
-        </div>
+            </div >
+        </div >
     );
 };
 
@@ -129,7 +135,8 @@ const MobileNavbar = ({ user }) => {
             <SheetContent className="flex flex-col">
                 <SheetHeader className="flex flex-row items-center justify-between mt-2">
                     <SheetTitle> <Link to="/">E-Learning</Link></SheetTitle>
-                    <DarkMode />
+                    {/* <DarkMode /> */}
+                    <ModeToggle />
                 </SheetHeader>
                 <Separator className="mr-2" />
                 <nav className="flex flex-col space-y-4">

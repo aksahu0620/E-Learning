@@ -13,6 +13,7 @@ import AddCourse from "./pages/admin/course/AddCourse";
 import EditCourse from "./pages/admin/course/EditCourse";
 import CreateLecture from "./pages/admin/lecture/CreateLecture";
 import EditLecture from "./pages/admin/lecture/EditLecture";
+import { ThemeProvider } from "@/components/theme-provider"
 
 const appRouter = createBrowserRouter([
   {
@@ -77,7 +78,9 @@ const appRouter = createBrowserRouter([
 function App() {
   return (
     <main>
-      <RouterProvider router={appRouter} />
+      <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
+        <RouterProvider router={appRouter} />
+      </ThemeProvider>
     </main>
   )
 }
