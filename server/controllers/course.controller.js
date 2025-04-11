@@ -34,10 +34,10 @@ export const createCourse = async (req, res) => {
 
 export const getPublishedCourse = async (_, res) => {
     try {
-        const courses = await Course.find({isPublished:true}).populate({path:"creator", select:"name photoUrl"});
-        if(!courses){
+        const courses = await Course.find({ isPublished: true }).populate({ path: "creator", select: "name photoUrl" });
+        if (!courses) {
             return res.status(404).json({
-                message:"course not found"
+                message: "course not found"
             })
         }
         return res.status(200).json({
@@ -46,8 +46,50 @@ export const getPublishedCourse = async (_, res) => {
     } catch (error) {
         console.log(error);
         return res.status(500).json({
-            message:"Failed to get published courses."
+            message: "Failed to get published courses."
         })
+    }
+}
+
+export const searchCourse = async (req, res) => {
+    try {
+        const { query = "", categories = [], sortByPrice = "" } = req.query;
+
+        // create search query
+        const searchCriteria = {
+            isPublished: true,
+            $or: [
+                { courseTitle: { $regex: query, $options: "i" } },
+                { subTitle: { $regex: query, $options: "i" } },
+                { category: { $regex: query, $options: "i" } },
+
+            ]
+        }
+
+        // if categories are selected
+        if (categories.length > 0) {
+            searchCriteria.category = { $in: categories };
+        }
+
+        // define sorting order
+        const sortOptions = {};
+        if (sortByPrice === "low") {
+            sortOptions.coursePrice = 1; // sort by price in ascending order
+        } else if (sortByPrice === "high") {
+            sortOptions.coursePrice = -1; // sort by price in descending order
+        }
+
+        let courses = await Course.find(searchCriteria).populate({ path: "creator", select: "name photoUrl" }).sort(sortOptions);
+
+        return res.status(200).json({
+            success:true,
+            courses: courses || []
+        });
+
+
+    } catch (error) {
+        console.log(error);
+
     }
 }
 
@@ -302,7 +344,7 @@ export const togglePublishCourse = async (req, res) => {
         const statusMessage = course.isPublished ? "Published" : "Unpublished";
 
         return res.status(200).json({
-            message:`Course is ${statusMessage}`
+            message: `Course is ${statusMessage}`
         });
 
     } catch (error) {
