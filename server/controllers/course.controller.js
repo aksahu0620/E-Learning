@@ -53,45 +53,70 @@ export const getPublishedCourse = async (_, res) => {
 
 export const searchCourse = async (req, res) => {
     try {
-        const { query = "", categories = [], sortByPrice = "" } = req.query;
+        const { query = "", categories = "", sortByPrice = "" } = req.query;
 
-        // create search query
-        const searchCriteria = {
+        let categoryArray = [];
+        if (categories) {
+            categoryArray = categories.split(",").filter(Boolean);
+        }
+
+        const searchRegex = new RegExp(query, "i");
+
+        const baseQuery = {
             isPublished: true,
-            $or: [
-                { courseTitle: { $regex: query, $options: "i" } },
-                { subTitle: { $regex: query, $options: "i" } },
-                { category: { $regex: query, $options: "i" } },
+            $and: [],
+        };
 
-            ]
+        // Full-text search on title/subtitle/category
+        if (query) {
+            const searchRegex = new RegExp(query, "i");
+            baseQuery.$and.push({
+                $or: [
+                    { courseTitle: searchRegex },
+                    { subTitle: searchRegex },
+                    { category: searchRegex },
+                ],
+            });
         }
 
-        // if categories are selected
-        if (categories.length > 0) {
-            searchCriteria.category = { $in: categories };
+        // Category filter
+        if (categoryArray.length > 0) {
+            const categoryRegexArray = categoryArray.map((cat) => new RegExp(cat, "i"));
+            baseQuery.$and.push({
+                category: { $in: categoryRegexArray },
+            });
         }
 
-        // define sorting order
+        // If no filters added, remove empty $and (avoids conflict)
+        if (baseQuery.$and.length === 0) {
+            delete baseQuery.$and;
+        }
+
+
+        // Sorting logic
         const sortOptions = {};
         if (sortByPrice === "low") {
-            sortOptions.coursePrice = 1; // sort by price in ascending order
+            sortOptions.coursePrice = 1;
         } else if (sortByPrice === "high") {
-            sortOptions.coursePrice = -1; // sort by price in descending order
+            sortOptions.coursePrice = -1;
         }
 
-        let courses = await Course.find(searchCriteria).populate({ path: "creator", select: "name photoUrl" }).sort(sortOptions);
+        const courses = await Course.find(baseQuery)
+            .populate({ path: "creator", select: "name photoUrl" })
+            .sort(sortOptions);
 
         return res.status(200).json({
-            success:true,
-            courses: courses || []
+            success: true,
+            courses: courses || [],
         });
-
 
     } catch (error) {
         console.log(error);
-
+        return res.status(500).json({
+            message: "Failed to search courses"
+        });
     }
-}
+};
 
 export const getCreatorCourses = async (req, res) => {
     try {

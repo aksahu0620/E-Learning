@@ -15,7 +15,7 @@ const SearchPage = () => {
 
     const { data, isLoading } = useGetSearchCourseQuery({
         searchQuery: query,
-        categories: selectedCategories,
+        categories: selectedCategories.join(","), // <-- make sure it's a comma-separated string
         sortByPrice
     });
 

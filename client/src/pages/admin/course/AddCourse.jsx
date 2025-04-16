@@ -64,6 +64,7 @@ const AddCourse = () => {
                                 <SelectItem value="Backend Development">Backend Development</SelectItem>
                                 <SelectItem value="Docker">Docker</SelectItem>
                                 <SelectItem value="Devops">Devops</SelectItem>
+                                <SelectItem value="Other">Other</SelectItem>
                             </SelectGroup>
                         </SelectContent>
                     </Select>
