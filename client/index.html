@@ -12,9 +12,12 @@
   <div id="root"></div>
   <script type="module" src="/src/main.jsx"></script>
   <script>
-    const root = window.document.documentElement
-    root.classList.remove("light", "dark")
-    root.classList.add(theme) // applies "dark" or "light"
+    // grab last‐saved theme (or fallback to "light")
+    const theme = localStorage.getItem("theme") || "light";
+
+    const root = document.documentElement;
+    root.classList.remove("light", "dark");
+    root.classList.add(theme);
   </script>
 </body>
 
