@@ -1,7 +1,7 @@
 import EditLecture from "@/pages/admin/lecture/EditLecture";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-const COURSE_API = "https://e-learning-asnh.onrender.com/api/v1/course"
+const COURSE_API = `${import.meta.env.VITE_API_BASE_URL}/course`;
 
 export const courseApi = createApi({
     reducerPath: "courseAPi",

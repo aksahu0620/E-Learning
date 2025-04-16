@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-const COURSE_PROGRESS_API = "https://e-learning-asnh.onrender.com/api/v1/progress";
+const COURSE_PROGRESS_API = `${import.meta.env.VITE_API_BASE_URL}/progress`;
 
 export const courseProgressApi = createApi({
     reducerPath: "courseProgressApi",
