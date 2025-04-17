@@ -63,8 +63,7 @@ export const authApi = createApi({
             query: (formData) => ({
                 url:"profile/update",
                 method:"PUT",
-                body:formData,
-                credentials:"include"
+                body:formData
             })
         })
     })
