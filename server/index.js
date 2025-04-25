@@ -19,9 +19,6 @@ const app = express();
 
 const PORT = process.env.PORT || 3000;
 
-// default middleware
-app.use(express.json());
-app.use(cookieParser());
 
 const allowedOrigins = [
     "http://localhost:5173",
@@ -40,6 +37,10 @@ app.use(cors({
     },
     credentials: true
 }));
+
+// default middleware
+app.use(express.json());
+app.use(cookieParser());
 
 // APIs
 app.use("/api/v1/media", mediaRoute);
