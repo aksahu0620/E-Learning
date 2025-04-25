@@ -25,8 +25,9 @@ app.use(cookieParser());
 
 const allowedOrigins = [
     "http://localhost:5173",
-    // "https://e-learning-ahlq4ev6f-akshay-kumar-sahus-projects.vercel.app",
-    "https://e-learning-one-jade.vercel.app"
+    "https://e-learning-git-main-akshay-kumar-sahus-projects.vercel.app/",
+    "https://e-learning-one-jade.vercel.app",
+    "https://e-learning-1ajejsy5i-akshay-kumar-sahus-projects.vercel.app/"
 ];
 
 app.use(cors({
