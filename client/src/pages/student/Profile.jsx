@@ -24,6 +24,8 @@ const Profile = () => {
     const [name, setName] = useState("");
     const [profilePhoto, setProfilePhoto] = useState("");
 
+
+
     const { data, isLoading, refetch } = useLoadUserQuery();
     const [
         updateUser,
@@ -67,6 +69,12 @@ const Profile = () => {
     if (isLoading) return <h1>Profile Loading...</h1>;
 
     const user = data && data.user;
+
+    useEffect(() => {
+        if (user) {
+            setName(user.name);  // Set initial name
+        }
+    }, [user]);
 
     console.log(user);
 

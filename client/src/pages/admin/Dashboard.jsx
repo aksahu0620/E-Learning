@@ -6,7 +6,7 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 const Dashboard = () => {
 
     const { data, isSuccess, isError, isLoading } = useGetAllPurchasedCourseQuery();
-
+    
     if (isLoading) return <h1>Loading...</h1>
     if (isError) return <h1 className="text-red-500">Failed to get purchased course</h1>
 
