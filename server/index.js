@@ -112,6 +112,10 @@ app.options("*", cors({
 app.use(express.json());
 app.use(cookieParser());
 
+app.get("/", (req, res) => {
+  res.send("This is note taking application!")
+})
+
 // API Routes
 app.use("/api/v1/media", mediaRoute);
 app.use("/api/v1/user", userRoute);
