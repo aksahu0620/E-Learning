@@ -77,9 +77,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Define allowed origins for CORS
-const allowedOrigins = [
-  "https://e-learning-three-puce.vercel.app"
-];
+const allowedOrigins = "https://e-learning-three-puce.vercel.app";
 
 // CORS Middleware
 app.use(
