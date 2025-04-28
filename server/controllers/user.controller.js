@@ -75,18 +75,26 @@ export const login = async (req, res) => {
 
 export const logout = async (_, res) => {
     try {
-        return res.status(200).cookie("token", "", { maxAge: 0 }).json({
-            message: "Logged out successfully.",
-            success: true
-        })
+        res.clearCookie("token", {
+            httpOnly: true,
+            secure: true,
+            sameSite: "None",
+            path: "/", // Important: matches the cookie's path
+        });
+
+        return res.status(200).json({
+            success: true,
+            message: "Logged out successfully."
+        });
     } catch (error) {
         console.log(error);
         return res.status(500).json({
             success: false,
             message: "Failed to logout"
-        })
+        });
     }
-}
+};
+
 
 export const getUserProfile = async (req, res) => {
     try {
@@ -139,7 +147,7 @@ export const updateProfile = async (req, res) => {
         const updatedUser = await User.findByIdAndUpdate(userId, updatedData, { new: true }).select("-password");
 
         return res.status(200).json({
-            success:true,
+            success: true,
             user: updatedUser,
             message: "Profile updated Successfully."
         })

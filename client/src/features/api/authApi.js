@@ -42,12 +42,14 @@ export const authApi = createApi({
             }),
             async onQueryStarted(_, { queryFulfilled, dispatch }) {
                 try {
-                    dispatch(userLoggedOut());
+                    await queryFulfilled; // ✅ wait for backend to confirm logout
+                    dispatch(userLoggedOut()); // ✅ only then clear state
                 } catch (error) {
                     console.log(error);
                 }
             }
         }),
+
         loadUser: builder.query({
             query: () => ({
                 url: "profile",
