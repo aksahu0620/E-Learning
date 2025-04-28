@@ -39,7 +39,7 @@ app.use(cookieParser());
 
 // ✅ Health check route
 app.get("/", (req, res) => {
-  res.send("E-Learning backend is running 🚀");
+  res.send("it indicates E-Learning backend is running 🚀");
 });
 
 // ✅ API routes
