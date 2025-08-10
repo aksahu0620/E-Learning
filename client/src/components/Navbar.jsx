@@ -88,7 +88,7 @@ const Navbar = () => {
                                 {user?.role === "instructor" && (
                                     <>
                                         <DropdownMenuSeparator />
-                                        <DropdownMenuItem><Link to="/admin/dashboard">Dashboard</Link></DropdownMenuItem>
+                                        <DropdownMenuItem><Link to="/instructor/dashboard">Dashboard</Link></DropdownMenuItem>
                                     </>
                                 )}
                             </DropdownMenuContent>
@@ -159,7 +159,7 @@ const MobileNavbar = ({ user }) => {
                 {user?.role === "instructor" && (
                     <SheetFooter>
                         <SheetClose asChild>
-                            <Button type="submit" onClick={() => navigate("/admin/dashboard")}>Dashboard</Button>
+                            <Button type="submit" onClick={() => navigate("/instructor/dashboard")}>Dashboard</Button>
                         </SheetClose>
                     </SheetFooter>
                 )}

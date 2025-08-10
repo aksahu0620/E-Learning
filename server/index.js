@@ -16,7 +16,7 @@ connectDB();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// ✅ CORS setup
+//CORS setup
 const allowedOrigins = [
   "http://localhost:5173",
   "https://e-learning-three-puce.vercel.app",
@@ -33,23 +33,23 @@ app.use(cors({
   credentials: true,
 }));
 
-// ✅ Middleware
+// Middleware
 app.use(express.json());
 app.use(cookieParser());
 
-// ✅ Health check route
+//Health check route
 app.get("/", (req, res) => {
   res.send("it indicates E-Learning backend is running 🚀");
 });
 
-// ✅ API routes
+// API routes
 app.use("/api/v1/media", mediaRoute);
 app.use("/api/v1/user", userRoute);
 app.use("/api/v1/course", courseRoute);
 app.use("/api/v1/purchase", purchaseRoute);
 app.use("/api/v1/progress", courseProgressRoute);
 
-// ✅ Start the server
+// Start the server
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });

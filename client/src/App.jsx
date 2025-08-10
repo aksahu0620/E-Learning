@@ -6,18 +6,18 @@ import MainLayout from "./layout/MainLayout";
 import Courses from "./pages/student/Courses";
 import MyLearning from "./pages/student/MyLearning";
 import Profile from "./pages/student/Profile";
-import Sidebar from "./pages/admin/Sidebar";
-import Dashboard from "./pages/admin/Dashboard";
-import CourseTable from "./pages/admin/course/CourseTable";
-import AddCourse from "./pages/admin/course/AddCourse";
-import EditCourse from "./pages/admin/course/EditCourse";
-import CreateLecture from "./pages/admin/lecture/CreateLecture";
-import EditLecture from "./pages/admin/lecture/EditLecture";
+import Sidebar from "./pages/instructor/Sidebar";
+import Dashboard from "./pages/instructor/Dashboard";
+import CourseTable from "./pages/instructor/course/CourseTable";
+import AddCourse from "./pages/instructor/course/AddCourse";
+import EditCourse from "./pages/instructor/course/EditCourse";
+import CreateLecture from "./pages/instructor/lecture/CreateLecture";
+import EditLecture from "./pages/instructor/lecture/EditLecture";
 import { ThemeProvider } from "@/components/theme-provider"
 import CourseDetail from "./pages/student/CourseDetail";
 import CourseProgress from "./pages/student/CourseProgress";
 import SearchPage from "./pages/student/SearchPage";
-import { AdminRoute, AuthenticatedUser, ProtectedRoute } from "./components/ProtectedRoutes";
+import { InstructorRoute, AuthenticatedUser, ProtectedRoute } from "./components/ProtectedRoutes";
 import PurchaseCourseProtectedRoute from "./components/PurchaseCourseProtectedRoute";
 
 const appRouter = createBrowserRouter([
@@ -58,10 +58,10 @@ const appRouter = createBrowserRouter([
         element: <ProtectedRoute><PurchaseCourseProtectedRoute><CourseProgress /></PurchaseCourseProtectedRoute></ProtectedRoute>
       },
 
-      // admin routes start from here.
+      // instructor routes start from here.
       {
-        path: "admin",
-        element: <AdminRoute><Sidebar /></AdminRoute>,
+        path: "instructor",
+        element: <InstructorRoute><Sidebar /></InstructorRoute>,
         children: [
           {
             path: "dashboard",

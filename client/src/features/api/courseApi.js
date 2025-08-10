@@ -1,4 +1,4 @@
-import EditLecture from "@/pages/admin/lecture/EditLecture";
+import EditLecture from "@/pages/instructor/lecture/EditLecture";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const COURSE_API = `${import.meta.env.VITE_API_BASE_URL}/course`;

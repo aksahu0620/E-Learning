@@ -21,7 +21,7 @@ export const AuthenticatedUser = ({ children }) => {
     return children;
 }
 
-export const AdminRoute = ({ children }) => {
+export const InstructorRoute = ({ children }) => {
     const { user, isAuthenticated } = useSelector(store => store.auth);
 
     if (!isAuthenticated) {

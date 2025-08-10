@@ -47,7 +47,7 @@ const CreateLecture = () => {
                     <Input type="text" value={lectureTitle} onChange={(e) => setLectureTitle(e.target.value)} placeholder="Your Lecture Title" />
                 </div>
                 <div className="flex items-center gap-2">
-                    <Button variant="outline" onClick={() => navigate(`/admin/course/${courseId}`)}>Back to course</Button>
+                    <Button variant="outline" onClick={() => navigate(`/instructor/course/${courseId}`)}>Back to course</Button>
                     <Button disabled={isLoading} onClick={createLectureHandler}>
                         {
                             isLoading ? (
