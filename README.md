@@ -96,3 +96,7 @@ After successful payment, users are enrolled and related lectures are unlocked.
 - Ensure all server env vars are set and HTTPS is enforced so cookies with `SameSite=None; Secure` work in browsers.
 - Update CORS `allowedOrigins` in `server/index.js` with your deployed client URL.
 - Set `VITE_API_BASE_URL` on the client to your deployed API base (e.g., `https://api.example.com/api/v1`).
+
+## Setup a local stripe listner
+stripe login
+- stripe listen --forward-to localhost:4242/webhook
