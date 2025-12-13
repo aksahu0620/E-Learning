@@ -13,7 +13,7 @@ A full‑stack Learning Management System with course creation, lecture video up
 ## Prerequisites
 - Node.js 18+ and npm
 - MongoDB (Atlas or local)
-- Stripe account + Stripe CLI (for webhooks in dev)
+- Stripe account (Stripe CLI configured globally in system environment)
 - Cloudinary account
 
 ## Environment variables
@@ -40,36 +40,53 @@ WEBHOOK_ENDPOINT_SECRET=whsec_...  # Returned by Stripe CLI when you run `stripe
 VITE_API_BASE_URL=http://localhost:3000/api/v1
 ```
 
-## Install & run
-Open two terminals.
+## Quick Start
 
-### 1) Server
-```
+Follow these steps to run the application locally. You'll need **two terminal windows** open, with the Stripe webhook listener running in one of them.
+
+> **Prerequisites:** Ensure you've installed dependencies by running `npm install` in both the `server/` and `client/` directories, and that you've configured your `.env` files as described in the [Environment Variables](#environment-variables) section above.
+
+### Step 1: Start the Backend Server
+
+In your first terminal, navigate to the server directory and start the backend:
+
+```bash
 cd server
-npm install
-npm run dev
+nodemon server.js
 ```
-Server starts on `http://localhost:${PORT}` (default `3000`). Health check: `GET /`.
 
-### 2) Client
-```
+The server will start on `http://localhost:${PORT}` (default `3000`). You can verify it's running by checking the health endpoint: `GET /`.
+
+### Step 2: Start the Frontend Development Server
+
+In your second terminal, navigate to the client directory and start the frontend:
+
+```bash
 cd client
-npm install
 npm run dev
 ```
-App runs at `http://localhost:5173`.
 
-## Stripe webhook (development)
-The purchase flow completes via a Stripe webhook at `POST /api/v1/purchase/webhook`.
+The application will be available at `http://localhost:5173`.
 
-1) Install Stripe CLI and sign in.
-2) Start the webhook forwarder (match your server port):
+### Step 3: Start Stripe Webhook Listener
+
+if Stripe CLI is configured globally in your system environment, you can run the webhook listener in the same ide in a separate terminal.
+
+First, authenticate with Stripe:
+
+```bash
+stripe login
 ```
-stripe listen --forward-to http://localhost:3000/api/v1/purchase/webhook
-```
-3) Copy the printed “Signing secret” and set it as `WEBHOOK_ENDPOINT_SECRET` in `server/.env`.
 
-After successful payment, users are enrolled and related lectures are unlocked.
+Then, start the webhook listener:
+
+```bash
+stripe listen --forward-to http://localhost:8080/api/v1/purchase/webhook
+```
+
+**Important:** After running the `stripe listen` command, Stripe CLI will output a webhook signing secret (starts with `whsec_`). Copy this value and add it to your `server/.env` file as `WEBHOOK_ENDPOINT_SECRET`.
+
+The webhook listener forwards Stripe events to your local server, enabling the purchase flow to complete. After successful payment, users are automatically enrolled and related lectures are unlocked.
 
 ## CORS and cookies
 - Allowed origins are configured in `server/index.js`: `http://localhost:5173` and the production app URL. Update `allowedOrigins` if needed.
@@ -96,7 +113,3 @@ After successful payment, users are enrolled and related lectures are unlocked.
 - Ensure all server env vars are set and HTTPS is enforced so cookies with `SameSite=None; Secure` work in browsers.
 - Update CORS `allowedOrigins` in `server/index.js` with your deployed client URL.
 - Set `VITE_API_BASE_URL` on the client to your deployed API base (e.g., `https://api.example.com/api/v1`).
-
-## Setup a local stripe listner
-stripe login
-- stripe listen --forward-to localhost:4242/webhook

@@ -23,7 +23,7 @@ export const courseApi = createApi({
             query: ({ searchQuery, categories, sortByPrice }) => {
                 let queryString = `/search?query=${encodeURIComponent(searchQuery || "")}`;
 
-                // ✅ Force categories into array
+                //  Force categories into array
                 const categoriesArray = Array.isArray(categories)
                     ? categories
                     : typeof categories === "string" && categories.length > 0
